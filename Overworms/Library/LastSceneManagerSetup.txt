@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Scenes/MainHugo.unity
+  isLoaded: 1
+  isActive: 1
