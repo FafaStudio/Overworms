@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class HeroMovement : MonoBehaviour {
+    public float speed;
+
 
 	// Use this for initialization
 	void Start () {
@@ -13,17 +15,17 @@ public class HeroMovement : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.Q))//left
         {
-            this.transform.Translate(-1, 0, 0);
+            this.transform.Translate(-speed, 0, 0);
         }
 
         if (Input.GetKey(KeyCode.D))//right
         {
-            this.transform.Translate(1, 0, 0);
+            this.transform.Translate(speed, 0, 0);
         }
 
         if (Input.GetKey(KeyCode.Space))//jump
         {
-            this.transform.Translate(0, 1, 0);
+            this.transform.Translate(0, speed, 0);
         }
     }
 
