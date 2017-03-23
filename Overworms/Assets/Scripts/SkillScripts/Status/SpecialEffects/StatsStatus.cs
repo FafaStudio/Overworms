@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsStatus : MonoBehaviour {
+[System.Serializable]
+public class StatsStatus : Status {
+	public enum listStatType
+	{
+		PV, ATTACK, DEFENSE, INIT, FIELD_OF_VIEW, MOVE_SPEED, ENDURANCE
+	}
 
-	// Use this for initialization
-	void Start () {
-		
+   [SerializeField]
+
+	public listStatType statType;
+
+   [SerializeField]
+	public int value;
+
+	public int getStatOfType(listStatType testedStatType){
+		if(statType == testedStatType){
+			return value;
+		}	else	{
+			return 0;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+
+	public listStatType getStatType(){return statType;}
+	public float getValue(){return value;}
 }
