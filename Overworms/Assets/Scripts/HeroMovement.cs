@@ -28,6 +28,4 @@ public class HeroMovement : MonoBehaviour {
             this.transform.Translate(0, speed, 0);
         }
     }
-
-
 }
