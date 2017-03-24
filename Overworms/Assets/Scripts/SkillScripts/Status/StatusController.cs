@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class StatusController : MonoBehaviour {
 
+	private HeroManager heroManager; 
 	public List<StatsStatus> statusList; //A changer en status, plus tard avec le customInspector pour pouvoir add les fils qu'on veut
 	// Use this for initialization
 	void Start () {
+		heroManager = GetComponent<HeroManager>();
+		updateBonus();
 	}
 
 	// Update is called once per frame
@@ -14,68 +17,83 @@ public class StatusController : MonoBehaviour {
 		
 	}
 
+	public void removeStatus(int i){
+		statusList.RemoveAt(i);
+		updateBonus();
+	}
 
-	public int getPvBonus(){
-		int attack = 0;
-		for(var i = 0; i < statusList.Count; i++){
-			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.PV);
-			}
-		}
-		return attack;
+	public void updateBonus(){
+		updatePvBonus();
+		updateAttackBonus();
+		updateDefenseBonus();
+		updateInitBonus();
+		updateFieldOfViewBonus();
+		updateMoveSpeedBonus();
+		updateEnduranceBonus();
 	}
-	public int getAttackBonus(){
-		int attack = 0;
+
+
+	public void updatePvBonus(){
+		int stat = 0;
 		for(var i = 0; i < statusList.Count; i++){
 			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.ATTACK);
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.PV);
 			}
 		}
-		return attack;
+		heroManager.gainLosePv(stat);
 	}
-	public int getDefenseBonus(){
-		int attack = 0;
+	public void updateAttackBonus(){
+		int stat = 0;
 		for(var i = 0; i < statusList.Count; i++){
 			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.DEFENSE);
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.ATTACK);
 			}
 		}
-		return attack;
+		heroManager.gainLoseAttack(stat);
 	}
-	public int getInitBonus(){
-		int attack = 0;
+	public void updateDefenseBonus(){
+		int stat = 0;
 		for(var i = 0; i < statusList.Count; i++){
 			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.INIT);
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.DEFENSE);
 			}
 		}
-		return attack;
+		heroManager.gainLoseDefense(stat);
 	}
-	public int getFieldOfViewBonus(){
-		int attack = 0;
+	public void updateInitBonus(){
+		int stat = 0;
 		for(var i = 0; i < statusList.Count; i++){
 			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.FIELD_OF_VIEW);
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.INIT);
 			}
 		}
-		return attack;
+		heroManager.gainLoseInit(stat);
 	}
-	public int getMoveSpeedBonus(){
-		int attack = 0;
+	public void updateFieldOfViewBonus(){
+		int stat = 0;
 		for(var i = 0; i < statusList.Count; i++){
 			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.MOVE_SPEED);
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.FIELD_OF_VIEW);
 			}
 		}
-		return attack;
+		heroManager.gainLoseFieldOfView(stat);
 	}
-	public int getEnduranceBonus(){
-		int attack = 0;
+	public void updateMoveSpeedBonus(){
+		int stat = 0;
 		for(var i = 0; i < statusList.Count; i++){
 			if(statusList[i] is StatsStatus){
-				attack += statusList[i].getStatOfType(StatsStatus.listStatType.ENDURANCE);
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.MOVE_SPEED);
 			}
 		}
-		return attack;
+		heroManager.gainLoseMoveSpeed(stat);
+	}
+	public void updateEnduranceBonus(){
+		int stat = 0;
+		for(var i = 0; i < statusList.Count; i++){
+			if(statusList[i] is StatsStatus){
+				stat += statusList[i].getStatOfType(StatsStatus.listStatType.ENDURANCE);
+			}
+		}
+		heroManager.gainLoseEndurance(stat);
 	}
 }
