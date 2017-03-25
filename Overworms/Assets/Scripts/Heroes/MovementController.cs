@@ -10,13 +10,14 @@ public class MovementController : MonoBehaviour {
 	bool groundTouch;
 	bool canJump;
 	float timerSaut;
-	public float MaxSautTime;
+	public float CooldownSaut;
+	public float coefficientSaut;
 
 
 	void Start () {
 		hero = GetComponent<HeroManager> ();
 		body = GetComponent<Rigidbody2D> ();
-		timerSaut = MaxSautTime;
+		timerSaut = CooldownSaut;
 		canJump=true;
 	}
 
@@ -36,13 +37,14 @@ public class MovementController : MonoBehaviour {
 		}
 		if (timerSaut <= 0f) {
 			canJump = true;
-			timerSaut = MaxSautTime;
+			timerSaut = CooldownSaut;
 		}
 	}
 
 	private void Jump(){
-		if (groundTouch && canJump && (timerSaut <= 0 || timerSaut == MaxSautTime) && (Input.GetKey (KeyCode.Space))) {
-			body.AddForce(new Vector2(0f, heroSpeed ), ForceMode2D.Impulse);
+		if (groundTouch && canJump && (timerSaut <= 0 || timerSaut == CooldownSaut) && (Input.GetKey (KeyCode.Space))) {
+			body.velocity = new Vector3 ();
+			body.AddForce(new Vector2(0f, heroSpeed*coefficientSaut), ForceMode2D.Impulse);
 			canJump = false;
 			groundTouch = false;
 		}
