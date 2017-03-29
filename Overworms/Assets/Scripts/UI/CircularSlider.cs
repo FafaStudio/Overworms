@@ -14,7 +14,7 @@ public class CircularSlider : MonoBehaviour {
 		uiManager.addUI (this.gameObject);
 		circularSilder = this.GetComponent<Image> ();
 		circularSilder.fillAmount = 1f;    
-		//this.gameObject.SetActive (false);
+		this.gameObject.SetActive (false);
 	}
 	void Update () {
 		if (uiManager.getCurrentCharacter () != null) {

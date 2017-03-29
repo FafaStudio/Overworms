@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public void addCharacter(GameObject charac){
 		characters.Add (charac);
 	}
+
 	public void removeCharacter(GameObject charac){
 		characters.Remove (charac);
 	}

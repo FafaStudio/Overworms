@@ -117,6 +117,7 @@
      <Compile Include="Assets\Destructible 2D\Scripts\D2dVector2.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\HeroMovement.cs" />
+     <Compile Include="Assets\Scripts\Heroes\FootCollider.cs" />
      <Compile Include="Assets\Scripts\Heroes\HeroManager.cs" />
      <Compile Include="Assets\Scripts\Heroes\MovementController.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\Skill.cs" />

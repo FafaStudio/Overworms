@@ -31,6 +31,7 @@ public class MovementController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+		checkFalling ();
 		if (hero.getCurEndurance () > 0) 
 			movement ();
 		else
@@ -59,9 +60,15 @@ public class MovementController : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Ground"){
-			groundTouch = true;
+	void checkFalling(){
+		RaycastHit2D hit = Physics2D.Linecast(transform.position, new Vector2(transform.position.x, transform.position.y-1f));
+		Debug.DrawLine (transform.position, new Vector2(transform.position.x, transform.position.y-1f));
+		if ((hit.collider != null)&&(hit.collider.gameObject!=this.gameObject)) {
+			if (hit.collider.gameObject.tag == "Ground") {
+				groundTouch = true;
+			}
+		} else {
+			groundTouch = false;
 		}
 	}
 
@@ -78,6 +85,14 @@ public class MovementController : MonoBehaviour {
 		else {
 			body.velocity = new Vector2 (0f, body.velocity.y);
 		}
+	}
+
+	public void setGroundTouch(bool val){
+		groundTouch = val;
+	}
+
+	public bool getGroundTouch(){
+		return groundTouch;
 	}
 
 

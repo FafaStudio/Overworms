@@ -46,11 +46,8 @@ public class HeroManager : MonoBehaviour {
 		ENDURANCE = curEndurance = initENDURANCE;
 	}
 
-	void Awake(){
-		GameManager.instance.addCharacter (this.gameObject);
-	}
-
 	void Start () {
+		GameManager.instance.addCharacter (this.gameObject);
 		initStats ();
 	}
 
