@@ -6,6 +6,7 @@ public class MovementController : MonoBehaviour {
 	HeroManager hero;
 	float heroSpeed;
 	Rigidbody2D body;
+	SpriteRenderer sprite;
 
 	bool groundTouch;
 	bool canJump;
@@ -20,6 +21,7 @@ public class MovementController : MonoBehaviour {
 	void Start () {
 		hero = GetComponent<HeroManager> ();
 		body = GetComponent<Rigidbody2D> ();
+		sprite = GetComponent<SpriteRenderer> ();
 		timerSaut = CooldownSaut;
 		canJump=true;
 	}
@@ -74,10 +76,12 @@ public class MovementController : MonoBehaviour {
 
 	private void movement(){
 		if (Input.GetKey (KeyCode.Q)) {
+			sprite.flipX = true;
 			body.velocity = new Vector2 (-heroSpeed * 0.05f, body.velocity.y);
 			if (groundTouch)
 				hero.gainLoseEndurance ((int)-enduranceMovement);
 		} else if (Input.GetKey (KeyCode.D)) {
+			sprite.flipX = false;
 			body.velocity = new Vector2 (heroSpeed * 0.05f, body.velocity.y);
 			if (groundTouch)
 				hero.gainLoseEndurance ((int)-enduranceMovement);
