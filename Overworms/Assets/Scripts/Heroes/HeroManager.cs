@@ -46,6 +46,10 @@ public class HeroManager : MonoBehaviour {
 		ENDURANCE = curEndurance = initENDURANCE;
 	}
 
+	void Awake(){
+		GameManager.instance.addCharacter (this.gameObject);
+	}
+
 	void Start () {
 		initStats ();
 	}
@@ -83,7 +87,8 @@ public class HeroManager : MonoBehaviour {
 	public void gainLoseInit(int val){curInit = INIT + val;}
 	public void gainLoseFieldOfView(int val){curFieldOfView = FIELD_OF_VIEW + val;}
 	public void gainLoseMoveSpeed(int val){curMoveSpeed = MOVE_SPEED + val;}
-	public void gainLoseEndurance(int val){curEndurance = ENDURANCE + val;}
+	//plus simple pour l'endurance, puisqu'elle est calculée pas par le système de statut mais dans l'update de MovementController
+	public void gainLoseEndurance(int val){curEndurance += val;}
 	public void gainLosePv(int val){
 		curPv += val;
 		if (curPv <= 0) 

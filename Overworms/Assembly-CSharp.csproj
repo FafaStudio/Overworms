@@ -115,6 +115,7 @@
      <Compile Include="Assets\Destructible 2D\Scripts\D2dSplitGroup.cs" />
      <Compile Include="Assets\Destructible 2D\Scripts\D2dSplitPixel.cs" />
      <Compile Include="Assets\Destructible 2D\Scripts\D2dVector2.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\HeroMovement.cs" />
      <Compile Include="Assets\Scripts\Heroes\HeroManager.cs" />
      <Compile Include="Assets\Scripts\Heroes\MovementController.cs" />
@@ -128,6 +129,8 @@
      <Compile Include="Assets\Scripts\SkillScripts\Status\SpecialEffects\StatsStatus.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\Status\Status.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\Status\StatusController.cs" />
+     <Compile Include="Assets\Scripts\UI\CharacterUI.cs" />
+     <Compile Include="Assets\Scripts\UI\CircularSlider.cs" />
      <None Include="Assets\Destructible 2D\Shaders\Diffuse.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Outline.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Default.shader" />

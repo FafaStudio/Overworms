@@ -13,6 +13,9 @@ public class MovementController : MonoBehaviour {
 	public float CooldownSaut;
 	public float coefficientSaut;
 
+	public float enduranceSaut;
+	public float enduranceMovement;
+
 
 	void Start () {
 		hero = GetComponent<HeroManager> ();
@@ -28,7 +31,10 @@ public class MovementController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		movement ();
+		if (hero.getCurEndurance () > 0) 
+			movement ();
+		else
+			body.velocity = new Vector2 (0f, body.velocity.y);
 	}
 
 	private void checkJump(){
@@ -42,11 +48,14 @@ public class MovementController : MonoBehaviour {
 	}
 
 	private void Jump(){
-		if (groundTouch && canJump && (timerSaut <= 0 || timerSaut == CooldownSaut) && (Input.GetKey (KeyCode.Space))) {
-			body.velocity = new Vector3 ();
-			body.AddForce(new Vector2(0f, heroSpeed*coefficientSaut), ForceMode2D.Impulse);
-			canJump = false;
-			groundTouch = false;
+		if (hero.getCurEndurance () - 5 > 0) {
+			if (groundTouch && canJump && (timerSaut <= 0 || timerSaut == CooldownSaut) && (Input.GetKey (KeyCode.Space))) {
+				body.velocity = new Vector3 ();
+				body.AddForce (new Vector2 (0f, heroSpeed * coefficientSaut), ForceMode2D.Impulse);
+				canJump = false;
+				groundTouch = false;
+				hero.gainLoseEndurance ((int)-enduranceSaut);
+			}
 		}
 	}
 
@@ -58,13 +67,15 @@ public class MovementController : MonoBehaviour {
 
 	private void movement(){
 		if (Input.GetKey (KeyCode.Q)) {
-			body.velocity = new Vector2 (-heroSpeed*0.05f, body.velocity.y);
+			body.velocity = new Vector2 (-heroSpeed * 0.05f, body.velocity.y);
+			if (groundTouch)
+				hero.gainLoseEndurance ((int)-enduranceMovement);
 		} else if (Input.GetKey (KeyCode.D)) {
-			body.velocity = new Vector2 (heroSpeed*0.05f, body.velocity.y);
-
+			body.velocity = new Vector2 (heroSpeed * 0.05f, body.velocity.y);
+			if (groundTouch)
+				hero.gainLoseEndurance ((int)-enduranceMovement);
 		}
-		else 
-		{
+		else {
 			body.velocity = new Vector2 (0f, body.velocity.y);
 		}
 	}
