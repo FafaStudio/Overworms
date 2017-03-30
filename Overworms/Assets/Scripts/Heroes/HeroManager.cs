@@ -91,4 +91,8 @@ public class HeroManager : MonoBehaviour {
 		if (curPv <= 0) 
 			Die ();
 	}
+
+	public void resetEndurance(){
+		curEndurance = ENDURANCE;
+	}
 }

@@ -133,14 +133,12 @@
      <Compile Include="Assets\Scripts\SpriteOutline.cs" />
      <Compile Include="Assets\Scripts\UI\CharacterUI.cs" />
      <Compile Include="Assets\Scripts\UI\CircularSlider.cs" />
+     <Compile Include="Assets\Scripts\UI\EndTurnUI.cs" />
      <None Include="Assets\Destructible 2D\Shaders\Diffuse.shader" />
      <None Include="Assets\Shaders\SpritesOutline.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Outline.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Default.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Keep Alpha.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>/Applications/Unity5.5/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity5.5/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -155,9 +153,6 @@
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>/Applications/Unity5.5/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>/Applications/Unity5.5/Unity.app/Contents/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity5.5/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>

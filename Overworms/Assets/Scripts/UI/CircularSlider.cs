@@ -11,7 +11,6 @@ public class CircularSlider : MonoBehaviour {
 
 	void Start() {
 		uiManager = GetComponentInParent<CharacterUI> ();
-		uiManager.addUI (this.gameObject);
 		circularSilder = this.GetComponent<Image> ();
 		circularSilder.fillAmount = 1f;    
 		this.gameObject.SetActive (false);

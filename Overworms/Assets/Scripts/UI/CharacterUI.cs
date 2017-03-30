@@ -7,11 +7,8 @@ public class CharacterUI : MonoBehaviour {
 
 	HeroManager currentCharacter;
 
-	List<GameObject> typeOfUI; // permet d'avoir une ref sur tous les UIs fils, pour le moment CircularSlider
-
-	void Awake(){
-		typeOfUI = new List<GameObject> ();
-	}
+	public GameObject enduranceUI;
+	public GameObject endTurnUI;
 
 	public HeroManager getCurrentCharacter(){
 		if (currentCharacter != null)
@@ -25,12 +22,22 @@ public class CharacterUI : MonoBehaviour {
 	}
 
 	public void initTurn(){
-		foreach (GameObject ui in typeOfUI) {
-			ui.SetActive (true);
-		}
+		enduranceUI.SetActive (true);
+		endTurnUI.SetActive (true);
 	}
 
-	public void addUI(GameObject ui){
-		typeOfUI.Add (ui);
+	public void endTurn(){
+		enduranceUI.SetActive (false);
+		endTurnUI.SetActive (false);
+	}
+
+	public void launchEndTurn(){
+		endTurnUI.SetActive (true);
+		endTurnUI.GetComponent<EndTurnUI> ().launchEndTurnUI ();
+	}
+
+	public void interruptEndTurn(){
+		endTurnUI.GetComponent<EndTurnUI> ().stopEndTurnUI ();
+		endTurnUI.SetActive (false);
 	}
 }
