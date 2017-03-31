@@ -28,9 +28,15 @@ public class FootCollider : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D col) {
+	void OnTriggerStay2D(Collider2D col) {
+		if(col.gameObject.tag == "Ground"){
+			heroController.setGroundTouch (true);
+		}
+	}
+
+	/*void OnTriggerExit2D(Collider2D col) {
 		if(col.gameObject.tag == "Ground"){
 			heroController.setGroundTouch (false);
 		}
-	}
+	}*/
 }
