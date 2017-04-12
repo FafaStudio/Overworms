@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\SkillScripts\Status\Editor\StatusControllerInspector.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\Status\Editor\StatusInspector.cs" />
      <None Include="Assets\Destructible 2D\Shaders\Diffuse.shader" />
+     <None Include="Assets\Shaders\SpritesOutline.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Outline.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Default.shader" />
      <None Include="Assets\Destructible 2D\Shaders\Keep Alpha.shader" />

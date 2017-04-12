@@ -6,29 +6,61 @@ public class MovementController : MonoBehaviour {
 	HeroManager hero;
 	float heroSpeed;
 	Rigidbody2D body;
+	BoxCollider2D collider;
+	SpriteRenderer sprite;
 
+	bool isMoving=false;
 	bool groundTouch;
 	bool canJump;
 	float timerSaut;
-	public float CooldownSaut;
+	public float cooldownSaut;
 	public float coefficientSaut;
+
+	public float coutEnduranceSaut;
+	public float coutEnduranceMovement;
 
 
 	void Start () {
 		hero = GetComponent<HeroManager> ();
 		body = GetComponent<Rigidbody2D> ();
-		timerSaut = CooldownSaut;
+		sprite = GetComponent<SpriteRenderer> ();
+		collider = GetComponent<BoxCollider2D> ();
+		timerSaut = cooldownSaut;
 		canJump=true;
 	}
 
 	void Update () {
+		if (!hero.getIsMyTurn ())
+			return;
 		heroSpeed = hero.getCurMoveSpeed ();
 		checkJump ();
 		Jump ();
+		checkEndTurn ();
 	}
 
 	void FixedUpdate(){
-		movement ();
+		if (!hero.getIsMyTurn ()) {
+			body.velocity = new Vector2 (0f, body.velocity.y);
+			return;
+		}
+		groundTouch =checkFalling ();
+		checkGliding ();
+		if (hero.getCurEndurance () > 0) 
+			movement ();
+		else if(groundTouch)
+			body.velocity = new Vector2 (0f, body.velocity.y);
+		else
+		//permet au joueur de controler son dernier saut si il na plus dendurance
+			movement ();
+	}
+
+	void checkEndTurn(){
+		if (Input.GetKeyDown (KeyCode.Y)&&groundTouch) {
+			GameManager.instance.getCharacterUI ().launchEndTurn ();
+		}
+		if (Input.GetKeyUp (KeyCode.Y)&&groundTouch) {
+			GameManager.instance.getCharacterUI ().interruptEndTurn ();
+		}
 	}
 
 	private void checkJump(){
@@ -37,38 +69,78 @@ public class MovementController : MonoBehaviour {
 		}
 		if (timerSaut <= 0f) {
 			canJump = true;
-			timerSaut = CooldownSaut;
+			timerSaut = cooldownSaut;
 		}
 	}
 
 	private void Jump(){
-		if (groundTouch && canJump && (timerSaut <= 0 || timerSaut == CooldownSaut) && (Input.GetKey (KeyCode.Space))) {
-			body.velocity = new Vector3 ();
-			body.AddForce(new Vector2(0f, heroSpeed*coefficientSaut), ForceMode2D.Impulse);
-			canJump = false;
-			groundTouch = false;
+		if (hero.getCurEndurance () - 5 > 0) {
+			if (groundTouch && canJump && (timerSaut <= 0 || timerSaut == cooldownSaut) && (Input.GetKeyDown (KeyCode.Space))) {
+				body.velocity = new Vector3 ();
+				body.AddForce (new Vector2 (0f, heroSpeed * coefficientSaut), ForceMode2D.Impulse);
+				canJump = false;
+				groundTouch = false;
+				hero.gainLoseEndurance ((int)-coutEnduranceSaut);
+			}
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Ground"){
-			groundTouch = true;
+	bool checkFalling(){
+		RaycastHit2D hit;
+		for (int i = -1; i < 1; i++) {
+			hit = Physics2D.Linecast(transform.position, new Vector2(transform.position.x+((float)i/3), transform.position.y-1f));
+			Debug.DrawLine (transform.position, new Vector2 ((transform.position.x+(float)i/3), transform.position.y - 1f));
+			if ((hit.collider != null) && (hit.collider.gameObject != this.gameObject)) {
+				if (hit.collider.gameObject.tag == "Ground") {
+					return true;
+				}
+			} 
+		}
+		return false;
+	}
+
+	void checkGliding(){
+		if ((groundTouch) && (!isMoving)) {
 		}
 	}
+
+	/*bool checkFalling(){
+		RaycastHit2D hit = Physics2D.Linecast(new Vector2(transform.position.x-0.5f, transform.position.y-0.75f), new Vector2(transform.position.x+0.5f, transform.position.y-0.75f));
+		Debug.DrawLine (new Vector2 (transform.position.x-0.5f, transform.position.y-0.75f), new Vector2(transform.position.x+0.5f, transform.position.y-0.75f));
+			if ((hit.collider != null) && (hit.collider.gameObject != this.gameObject)) {
+				if (hit.collider.gameObject.tag == "Ground") {
+					return true;
+				}
+		}
+		return false;
+	}*/
 
 	private void movement(){
 		if (Input.GetKey (KeyCode.Q)) {
-			body.velocity = new Vector2 (-heroSpeed*0.05f, body.velocity.y);
+			sprite.flipX = true;
+			isMoving = true;
+			body.velocity = new Vector2 (-heroSpeed * 0.05f, body.velocity.y);
+			if (groundTouch)
+				hero.gainLoseEndurance ((int)-coutEnduranceMovement);
 		} else if (Input.GetKey (KeyCode.D)) {
-			body.velocity = new Vector2 (heroSpeed*0.05f, body.velocity.y);
-
+			sprite.flipX = false;
+			isMoving = true;
+			body.velocity = new Vector2 (heroSpeed * 0.05f, body.velocity.y);
+			if (groundTouch)
+				hero.gainLoseEndurance ((int)-coutEnduranceMovement);
 		}
-		else 
-		{
+		else {
+			isMoving = false;
 			body.velocity = new Vector2 (0f, body.velocity.y);
 		}
 	}
 
+	public void setGroundTouch(bool val){
+		groundTouch = val;
+	}
 
+	public bool getGroundTouch(){
+		return groundTouch;
+	}
 
 }
