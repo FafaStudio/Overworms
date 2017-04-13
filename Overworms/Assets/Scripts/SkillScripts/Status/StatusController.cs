@@ -5,7 +5,7 @@ using UnityEngine;
 public class StatusController : MonoBehaviour {
 
 	private HeroManager heroManager; 
-	public List<StatsStatus> statusList; //A changer en status, plus tard avec le customInspector pour pouvoir add les fils qu'on veut
+	public List<Status> statusList = new List<Status>();
 	// Use this for initialization
 	void Start () {
 		heroManager = GetComponent<HeroManager>();
@@ -17,6 +17,9 @@ public class StatusController : MonoBehaviour {
 		
 	}
 
+	public void addStatus(Status status){
+		statusList.Add(status);
+	}
 	public void removeStatus(int i){
 		statusList.RemoveAt(i);
 		updateBonus();
@@ -96,4 +99,6 @@ public class StatusController : MonoBehaviour {
 		}
 		heroManager.gainLoseEndurance(stat);
 	}
+
+
 }

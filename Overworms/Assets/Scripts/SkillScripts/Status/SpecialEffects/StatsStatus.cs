@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class StatsStatus : Status {
 	{
 		PV, ATTACK, DEFENSE, INIT, FIELD_OF_VIEW, MOVE_SPEED, ENDURANCE
 	}
-
+ 
    [SerializeField]
 
 	public listStatType statType;
@@ -16,7 +17,7 @@ public class StatsStatus : Status {
    [SerializeField]
 	public int value;
 
-	public int getStatOfType(listStatType testedStatType){
+	public override int getStatOfType(listStatType testedStatType){
 		if(statType == testedStatType){
 			return value;
 		}	else	{
@@ -28,4 +29,9 @@ public class StatsStatus : Status {
 
 	public listStatType getStatType(){return statType;}
 	public float getValue(){return value;}
+
+    public override Type doEffect()
+    {
+        throw new NotImplementedException();
+    }
 }
