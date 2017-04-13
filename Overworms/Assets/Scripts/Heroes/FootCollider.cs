@@ -9,18 +9,6 @@ public class FootCollider : MonoBehaviour {
 	void Awake () {
 		heroController = GetComponentInParent<MovementController> ();
 	}
-	
-	/*void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Ground"){
-			heroController.setGroundTouch (true);
-		}
-	}
-
-	void OnCollisionExit2D(Collision2D col){
-		if(col.gameObject.tag == "Ground"){
-			heroController.setGroundTouch (false);
-		}
-	}*/
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if(col.gameObject.tag == "Ground"){
@@ -33,10 +21,4 @@ public class FootCollider : MonoBehaviour {
 			heroController.setGroundTouch (true);
 		}
 	}
-
-	/*void OnTriggerExit2D(Collider2D col) {
-		if(col.gameObject.tag == "Ground"){
-			heroController.setGroundTouch (false);
-		}
-	}*/
 }
