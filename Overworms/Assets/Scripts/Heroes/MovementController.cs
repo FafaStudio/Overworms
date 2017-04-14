@@ -9,6 +9,12 @@ public class MovementController : MonoBehaviour {
 	BoxCollider2D collider;
 	SpriteRenderer sprite;
 
+	public PhysicsMaterial2D movementMaterial;
+	public PhysicsMaterial2D passiveMaterial;
+
+
+	
+
 	bool isMoving=false;
 	bool groundTouch;
 	bool canJump;
@@ -117,12 +123,18 @@ public class MovementController : MonoBehaviour {
 
 	private void movement(){
 		if (Input.GetKey (KeyCode.Q)) {
+			if(!isMoving){
+				swapMaterial(movementMaterial);
+			}
 			sprite.flipX = true;
 			isMoving = true;
 			body.velocity = new Vector2 (-heroSpeed * 0.05f, body.velocity.y);
 			if (groundTouch)
 				hero.gainLoseEndurance ((int)-coutEnduranceMovement);
 		} else if (Input.GetKey (KeyCode.D)) {
+			if(!isMoving){
+				swapMaterial(movementMaterial);
+			}
 			sprite.flipX = false;
 			isMoving = true;
 			body.velocity = new Vector2 (heroSpeed * 0.05f, body.velocity.y);
@@ -130,9 +142,21 @@ public class MovementController : MonoBehaviour {
 				hero.gainLoseEndurance ((int)-coutEnduranceMovement);
 		}
 		else {
+			if(isMoving){
+				swapMaterial(passiveMaterial);
+			}
+
 			isMoving = false;
 			body.velocity = new Vector2 (0f, body.velocity.y);
 		}
+	}
+
+	private void swapMaterial(PhysicsMaterial2D changeMaterial){
+		gameObject.GetComponent<BoxCollider2D>().sharedMaterial = changeMaterial;
+		gameObject.GetComponent<Rigidbody2D>().sharedMaterial = changeMaterial;			
+			
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		gameObject.GetComponent<BoxCollider2D>().enabled = true;
 	}
 
 	public void setGroundTouch(bool val){
