@@ -6,7 +6,7 @@ public class MovementController : MonoBehaviour {
 	HeroManager hero;
 	float heroSpeed;
 	Rigidbody2D body;
-	BoxCollider2D collider;
+	BoxCollider2D boxCollider;
 	SpriteRenderer sprite;
 
 	public PhysicsMaterial2D movementMaterial;
@@ -30,7 +30,7 @@ public class MovementController : MonoBehaviour {
 		hero = GetComponent<HeroManager> ();
 		body = GetComponent<Rigidbody2D> ();
 		sprite = GetComponent<SpriteRenderer> ();
-		collider = GetComponent<BoxCollider2D> ();
+		boxCollider = GetComponent<BoxCollider2D> ();
 		timerSaut = cooldownSaut;
 		canJump=true;
 	}
@@ -152,11 +152,11 @@ public class MovementController : MonoBehaviour {
 	}
 
 	private void swapMaterial(PhysicsMaterial2D changeMaterial){
-		gameObject.GetComponent<BoxCollider2D>().sharedMaterial = changeMaterial;
-		gameObject.GetComponent<Rigidbody2D>().sharedMaterial = changeMaterial;			
+		boxCollider.sharedMaterial = changeMaterial;
+		body.sharedMaterial = changeMaterial;			
 			
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
-		gameObject.GetComponent<BoxCollider2D>().enabled = true;
+		boxCollider.enabled = false;
+		boxCollider.enabled = true;
 	}
 
 	public void setGroundTouch(bool val){

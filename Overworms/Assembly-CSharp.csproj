@@ -121,6 +121,7 @@
      <Compile Include="Assets\Scripts\Heroes\HeroManager.cs" />
      <Compile Include="Assets\Scripts\Heroes\MovementController.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\Skill.cs" />
+     <Compile Include="Assets\Scripts\SkillScripts\SkillController.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\SpellScripts\ImpactEffects\ImpactEffects.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\SpellScripts\ImpactForms\ImpactForms.cs" />
      <Compile Include="Assets\Scripts\SkillScripts\SpellScripts\Movements\Movements.cs" />
